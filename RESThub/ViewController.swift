@@ -16,10 +16,20 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        // TODO: GET a list of gists
+        DataService.shared.fetchGists { (result) in
+            switch result {
+            case .success(let json):
+                print(json)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
-
+    
     @IBAction func createNewGist(_ sender: UIButton) {
+        // TODO: POST a new gist
     }
     
     // MARK: Utilities
