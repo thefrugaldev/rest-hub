@@ -17,11 +17,25 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /* Testing the custom encoding behavior */
+        /* let testGist = Gist(id: nil, isPublic: true, description: "Hello World")
+        
+        do {
+            let gistData = try JSONEncoder().encode(testGist)
+            let stringData = String(data: gistData, encoding: .utf8)
+            
+            print(stringData!)
+        } catch {
+            print("Encoding failed")
+        } */
+        
         // TODO: GET a list of gists
         DataService.shared.fetchGists { (result) in
             switch result {
-            case .success(let json):
-                print(json)
+            case .success(let gists):
+                for gist in gists {
+                    print("\(gist)\n")
+                }
             case .failure(let error):
                 print(error)
             }

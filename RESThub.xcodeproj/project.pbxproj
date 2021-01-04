@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		14A8FE9B25A2486F00FBB496 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A8FE9A25A2486F00FBB496 /* DataService.swift */; };
+		14A8FE9E25A342A300FBB496 /* Gist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A8FE9D25A342A300FBB496 /* Gist.swift */; };
 		14BBF2FE25A232AE00CC9384 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BBF2FD25A232AE00CC9384 /* AppDelegate.swift */; };
 		14BBF30225A232AE00CC9384 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BBF30125A232AE00CC9384 /* ViewController.swift */; };
 		14BBF30525A232AE00CC9384 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14BBF30325A232AE00CC9384 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		14A8FE9A25A2486F00FBB496 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		14A8FE9D25A342A300FBB496 /* Gist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gist.swift; sourceTree = "<group>"; };
 		14BBF2FA25A232AE00CC9384 /* RESThub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RESThub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14BBF2FD25A232AE00CC9384 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14BBF30125A232AE00CC9384 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				14BBF30825A232AF00CC9384 /* LaunchScreen.storyboard */,
 				14BBF30B25A232AF00CC9384 /* Info.plist */,
 				14A8FE9A25A2486F00FBB496 /* DataService.swift */,
+				14A8FE9D25A342A300FBB496 /* Gist.swift */,
 			);
 			path = RESThub;
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14A8FE9E25A342A300FBB496 /* Gist.swift in Sources */,
 				14A8FE9B25A2486F00FBB496 /* DataService.swift in Sources */,
 				14BBF30225A232AE00CC9384 /* ViewController.swift in Sources */,
 				14BBF2FE25A232AE00CC9384 /* AppDelegate.swift in Sources */,

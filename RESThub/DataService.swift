@@ -11,7 +11,7 @@ class DataService {
     static let shared = DataService()
     fileprivate let baseURLString = "https://api.github.com"
     
-    func fetchGists(completion: @escaping (Result<Any, Error>) -> Void) {
+    func fetchGists(completion: @escaping (Result<[Gist], Error>) -> Void) {
         // var baseURL = URL(string: baseURLString)
         // baseURL?.appendPathComponent("/somepath")
         
@@ -39,8 +39,9 @@ class DataService {
             }
             
             do {
-                let json = try JSONSerialization.jsonObject(with: validData, options: [])
-                completion(.success(json))
+                // let json = try JSONSerialization.jsonObject(with: validData, options: [])
+                let gists = try JSONDecoder().decode([Gist].self, from: validData)
+                completion(.success(gists))
             } catch let serializationError {
                 completion(.failure(serializationError))
             }
