@@ -13,50 +13,46 @@ class ViewController: UIViewController {
     @IBOutlet weak var feedTableView: UITableView!
     
     // MARK: Variables
+    var feedGists: [Gist] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         /* Testing the custom encoding behavior */
         /* let testGist = Gist(id: nil, isPublic: true, description: "Hello World")
-        
-        do {
-            let gistData = try JSONEncoder().encode(testGist)
-            let stringData = String(data: gistData, encoding: .utf8)
-            
-            print(stringData!)
-        } catch {
-            print("Encoding failed")
-        } */
+         
+         do {
+         let gistData = try JSONEncoder().encode(testGist)
+         let stringData = String(data: gistData, encoding: .utf8)
+         
+         print(stringData!)
+         } catch {
+         print("Encoding failed")
+         } */
         
         // TODO: GET a list of gists
-        /* DataService.shared.fetchGists { (result) in
-            switch result {
-            case .success(let gists):
-                for gist in gists {
-                    print("\(gist)\n")
+        DataService.shared.fetchGists { (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let gists):
+                    self.feedGists = gists
+                    self.feedTableView.reloadData()
+                case .failure(let error):
+                    print(error)
                 }
-            case .failure(let error):
-                print(error)
-            }
-        } */
-        
-        DataService.shared.starUnstarGist(id: "e3617c31fb96a5d54a215c79e84d45c5", star: false) { (success) in
-            if success {
-                print("Gist successfully unstarred!")
-            } else {
-                print("Gist was not able to be unstarred...")
             }
         }
     }
     
     @IBAction func createNewGist(_ sender: UIButton) {
         DataService.shared.createNewGist { (result) in
-            switch result {
+            DispatchQueue.main.async {
+                switch result {
                 case .success(let json):
-                    print(json)
-            case .failure(let error):
-                print(error)
+                    self.showResultAlert(title: "Yay!", message: "New post succesfully created.")
+                case .failure(let error):
+                    self.showResultAlert(title: "Oops", message: "Something went wrong...")
+                }
             }
         }
     }
@@ -74,25 +70,48 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.feedGists.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "feedCellID", for: indexPath)
+        let currentGist = self.feedGists[indexPath.row]
+        
+        cell.textLabel?.text = currentGist.description
+        cell.detailTextLabel?.text = currentGist.id
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let currentGist = self.feedGists[indexPath.row]
+        
         let starAction = UIContextualAction(style: .normal, title: "Star") { (action, view, completion) in
             
-            // TODO: PUT a gist star
+            DataService.shared.starUnstarGist(id: "\(currentGist.id!)", star: true) { (success) in
+                DispatchQueue.main.async {
+                    if success {
+                        self.showResultAlert(title: "Success", message: "Gist successfully starred!")
+                    } else {
+                        self.showResultAlert(title: "Oops", message: "Gist was not able to be starred...")
+                    }
+                }
+            }
+            
             completion(true)
         }
         
         let unstarAction = UIContextualAction(style: .normal, title: "Unstar") { (action, view, completion) in
             
-            // TODO: DELETE a gist star
+            DataService.shared.starUnstarGist(id: "\(currentGist.id!)", star: false) { (success) in
+                DispatchQueue.main.async {
+                    if success {
+                        self.showResultAlert(title: "Success", message: "Gist successfully unstarred!")
+                    } else {
+                        self.showResultAlert(title: "Oops", message: "Gist was not able to be unstarred...")
+                    }
+                }
+            }
             completion(true)
         }
         

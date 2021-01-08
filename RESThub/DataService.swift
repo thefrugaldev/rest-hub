@@ -10,7 +10,16 @@ import Foundation
 class DataService {
     static let shared = DataService()
     fileprivate let baseURLString = "https://api.github.com"
-    fileprivate let authToken = ""
+    fileprivate let authToken = "44d02e4d888d2be7ba5b4eec354255d79cd5c937"
+    
+    let customSession: URLSession = {
+        let customConfig = URLSessionConfiguration.default
+        // let backgroundConfig = URLSessionConfiguration.background(withIdentifier: "")
+        customConfig.networkServiceType = .video
+        customConfig.allowsCellularAccess = true
+        
+        return URLSession(configuration: customConfig)
+    }()
     
     func fetchGists(completion: @escaping (Result<[Gist], Error>) -> Void) {
         // var baseURL = URL(string: baseURLString)
