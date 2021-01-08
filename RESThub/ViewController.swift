@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         } */
         
         // TODO: GET a list of gists
-        DataService.shared.fetchGists { (result) in
+        /* DataService.shared.fetchGists { (result) in
             switch result {
             case .success(let gists):
                 for gist in gists {
@@ -39,11 +39,26 @@ class ViewController: UIViewController {
             case .failure(let error):
                 print(error)
             }
+        } */
+        
+        DataService.shared.starUnstarGist(id: "e3617c31fb96a5d54a215c79e84d45c5", star: false) { (success) in
+            if success {
+                print("Gist successfully unstarred!")
+            } else {
+                print("Gist was not able to be unstarred...")
+            }
         }
     }
     
     @IBAction func createNewGist(_ sender: UIButton) {
-        // TODO: POST a new gist
+        DataService.shared.createNewGist { (result) in
+            switch result {
+                case .success(let json):
+                    print(json)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     // MARK: Utilities
